@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is the client end of a Mini School Portal Project I built with REACT.
 
 ## Available Scripts
 
