@@ -25,7 +25,7 @@ const StoreApplication = (data, dispatch) => {
       }
     })
     .catch((err) => {
-      console.log("errrrr::::::::::: ", err);
+      console.log("errrrr::::::::::: with error: ", err);
       dispatch({ type: "StoreApplicationsFailed", data: err });
     });
 };
