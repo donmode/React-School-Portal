@@ -46,6 +46,8 @@ import { BasicBiodataProps } from "../../Redux/Actions/BasicBiodataActions";
 
 import { connect } from "react-redux";
 
+import { Redirect } from "react-router-dom";
+
 class OnlineApplicationContainer extends Component {
   constructor(props) {
     super(props);
@@ -60,6 +62,7 @@ class OnlineApplicationContainer extends Component {
       ],
       isOpen: false,
       modalContent: "",
+      applied: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -184,7 +187,7 @@ class OnlineApplicationContainer extends Component {
     }
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     let form_field = {};
     form_field["first_name"] = this.props.biodata.firstname;
@@ -211,10 +214,34 @@ class OnlineApplicationContainer extends Component {
     }
     form_field["pos"] = pos;
 
-    store.dispatch(SaveApplication(form_field));
+    const saved = await store.dispatch(SaveApplication(form_field));
+    if (saved) {
+      return this.setState({ applied: true });
+    } else {
+      return this.setState({
+        modalContent: "unable to create application",
+        isOpen: true,
+      });
+    }
   }
 
   render() {
+    if (this.state.applied === true) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: {
+              username: this.props.biodata.email,
+              isOpen: true,
+              status: "success",
+              contents:
+                "Application created successfully! Kindly check your mail for you login credentials",
+            },
+          }}
+        />
+      );
+    }
     let application_choice = "";
     if (this.props.applicationSettings[0] !== undefined) {
       application_choice = this.props.applicationSettings[0].application_choice;
@@ -240,7 +267,7 @@ class OnlineApplicationContainer extends Component {
 
           {application_choice !== "" ? application_choice : ""}
 
-          <SubmitButton hand />
+          <SubmitButton />
         </Form>
       </Aux>
     );

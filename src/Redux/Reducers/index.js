@@ -5,6 +5,7 @@ import ModeOfAdmissionsReducer from "./ModeOfAdmissions";
 import PosReducer from "./Pos";
 import ApplicationsReducer from "./Applications";
 import BasicBiodataReducer from "./BasicBiodata";
+import LoginsReducer from "./Logins";
 import SchoolProgramsReducer from "./SchoolPrograms";
 import ApplicationSettingsReducer from "./ApplicationSettings";
 import { combineReducers, createStore, applyMiddleware } from "redux";
@@ -20,6 +21,7 @@ const allReducers = combineReducers({
   biodata: BasicBiodataReducer,
   school_programs: SchoolProgramsReducer,
   application_settings: ApplicationSettingsReducer,
+  logins: LoginsReducer,
 });
 
 const initialState = {};

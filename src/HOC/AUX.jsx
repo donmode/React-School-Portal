@@ -2,6 +2,14 @@ import Modal from "react-modal";
 import React from "react";
 Modal.setAppElement("#root");
 const Aux = (props) => {
+  let statusClass = "";
+  if (props.status === "success") {
+    statusClass = "btn btn-sm btn-success";
+  } else if (props.status === "warning") {
+    statusClass = "btn btn-sm btn-warning";
+  } else {
+    statusClass = "btn btn-sm btn-danger";
+  }
   return (
     <div>
       <Modal
@@ -19,7 +27,7 @@ const Aux = (props) => {
         }}
         contentLabel={props.Label}
       >
-        <button onClick={props.closeModal} className="btn btn-sm btn-danger">
+        <button onClick={props.closeModal} className={statusClass}>
           close
         </button>
         <div className="p-5">{props.contents}</div>

@@ -3,7 +3,6 @@ import { formatObjectsToArray } from "../../Utilities/utils";
 
 const client_token = process.env.REACT_APP_CLIENT_TOKEN;
 const endpoint_url_base = process.env.REACT_APP_ENDPOINT_URL_BASE;
-
 const GetList = (dispatch) => {
   return Axios.get(endpoint_url_base + "school_programs/list", {
     headers: { Authorization: `Bearer ${client_token}` },
@@ -23,7 +22,10 @@ const GetList = (dispatch) => {
         }
       }
     })
-    .catch((err) => dispatch({ type: "SchoolProgramsListFailed", data: err }));
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: "SchoolProgramsListFailed", data: err });
+    });
 };
 
 export { GetList };
